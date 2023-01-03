@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///Cubit(state) => ValueNotifier (value)
@@ -14,7 +15,13 @@ class CounterCubit extends Cubit<int> {
     ///emit အပြောင်း
   }
 
-  void reset(bool value) {
-    emit(value ? 1 : 0);
+  void reset(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text("hello World"),
+          );
+        });
   }
 }

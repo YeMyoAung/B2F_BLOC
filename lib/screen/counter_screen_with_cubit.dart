@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/counter_cubit.dart';
 
+///Widget(Home) => build method => BuildContext context
+///Home => Login
+
 class CounterScreenWithCubit extends StatelessWidget {
   const CounterScreenWithCubit({Key? key}) : super(key: key);
 

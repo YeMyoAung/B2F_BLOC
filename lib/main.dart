@@ -1,12 +1,58 @@
+import 'package:bloc_example/cubit/cubit_last.dart';
+import 'package:bloc_example/observer/observer_example.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/counter_cubit.dart';
-import 'screen/counter_cubit_screen_with_consumer.dart';
+import 'screen/cubit_last_example.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 
+///Pro
+///Generic Type ဟုတ်မဟုတ်သိနိုင်မဲ့အချက်(build-inလည်းမပါဘူး,Implementလုပ်ထားခြင်းလည်းမရှိဘူး)(Data Typeသတ်မှတ်တဲ့အလုပ်လုပ်တယ်)
+///
+///
+///Variable,T = dynamic,return => Null
+///T = String
+///Stream.periodic(Duration period,[T computation(int computationCount)?])
+///
+///Be
+///return data typeက voidဟုတ်မဟုတ်ကြည့်လိုက်
+///voidကလွဲရင် ကျန်တာအားလုံးမှာ return dataရှိတယ်လို့မှတ်ရမယ်
 void main() {
+  Bloc.observer = ObserverExample();
+  // i++
+  // Bloc.observer = fjslfjal();
+  ///ToDo::
+  Bloc.transformer = restartable();
+
+  // Stream.periodic(); => return data
+  // Future.delayed();  => return data
+  // Future.any(); => reutrn data
+
   runApp(const MyApp());
+
+  ///void => return data
 }
+
+void fdsajkl() {}
+
+void afdsa() {}
+
+// class Person extends Equatable {
+//   final String name;
+//   final int age;
+//   final DateTime dob;
+//   final Map parents;
+//
+//   Person({
+//     required this.name,
+//     required this.age,
+//     required this.dob,
+//     required this.parents,
+//   });
+//
+//   @override
+//   List<Object?> get props => [name, age];
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,6 +60,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final Person person1 =
+    //     Person(name: 'name', age: 2, dob: DateTime(2000), parents: {});
+    // final Person person2 =
+    //     Person(name: 'name', age: 2, dob: DateTime(2000), parents: {});
+    // print(person1 == person2);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -29,8 +80,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (_) => CounterCubit(0),
-        child: CounterCubitScreenWithConsumer(),
+        create: (_) => CubitLast(
+          PredictState(
+              color: Colors.grey, message: "Let's Predict", isLoading: false),
+        ),
+        child: const CubitExample(),
       ),
     );
   }

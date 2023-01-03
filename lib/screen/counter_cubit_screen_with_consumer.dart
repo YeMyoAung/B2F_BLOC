@@ -14,7 +14,8 @@ class CounterCubitScreenWithConsumer extends StatelessWidget {
       appBar: AppBar(title: Text("Counter Cubit Screen With Consumer")),
       body: Center(
         child: BlocConsumer<CounterCubit, int>(
-          builder: (_, value) {
+          builder: (ctx, value) {
+            ///Error
             log("Build $value");
             return Text("$value");
           },
@@ -23,16 +24,19 @@ class CounterCubitScreenWithConsumer extends StatelessWidget {
             log("previous is $previous");
             return false;
           },
-          listenWhen: (previous, current) {
-            return true;
-            // return previous != current;
-          },
           listener: (_, value) {
             print("Listener $value");
+            if (value == 5) {
+              context.read<CounterCubit>().reset(context);
+            }
             // if (value == -1) {
             //   context.read<CounterCubit>().reset();
             // }
             // context.read<CounterCubit>().reset(value % 2 == 0);
+          },
+          listenWhen: (previous, current) {
+            return true;
+            // return previous != current;
           },
         ),
       ),
