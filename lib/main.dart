@@ -1,10 +1,9 @@
-import 'package:bloc_example/cubit/cubit_last.dart';
+import 'package:bloc_example/bloc/bloc_last.dart';
+import 'package:bloc_example/bloc/counter_bloc.dart';
 import 'package:bloc_example/observer/observer_example.dart';
+import 'package:bloc_example/screen/counter_bloc_example.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'screen/cubit_last_example.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 ///Pro
 ///Generic Type ဟုတ်မဟုတ်သိနိုင်မဲ့အချက်(build-inလည်းမပါဘူး,Implementလုပ်ထားခြင်းလည်းမရှိဘူး)(Data Typeသတ်မှတ်တဲ့အလုပ်လုပ်တယ်)
@@ -22,7 +21,7 @@ void main() {
   // i++
   // Bloc.observer = fjslfjal();
   ///ToDo::
-  Bloc.transformer = restartable();
+  // Bloc.transformer = droppable();
 
   // Stream.periodic(); => return data
   // Future.delayed();  => return data
@@ -79,12 +78,36 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider(
-        create: (_) => CubitLast(
-          PredictState(
-              color: Colors.grey, message: "Let's Predict", isLoading: false),
-        ),
-        child: const CubitExample(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => CounterBloc(0),
+          ),
+          BlocProvider(
+              create: (_) => PredictBloc(DefaultState(
+                      isLoading: false,
+                      color: Colors.grey,
+                      message: "Let's Predict",
+                      values: const {
+                        0: 0,
+                        1: 0,
+                        2: 0,
+                        3: 0,
+                        4: 0,
+                        5: 0,
+                      }))),
+          BlocProvider(
+              create: (_) => CounterBlocWithMultiEvent(DefaultCounterState(0))),
+          // BlocProvider(
+          //   create: (_) => CubitLast(
+          //     PredictState(
+          //         color: Colors.grey,
+          //         isLoading: false,
+          //         message: "Let's Predict"),
+          //   ),
+          // ),
+        ],
+        child: const CounterBlocExample(),
       ),
     );
   }

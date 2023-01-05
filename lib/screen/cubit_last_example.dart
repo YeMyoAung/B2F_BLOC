@@ -165,6 +165,7 @@ class _CubitExampleState extends State<CubitExample> {
             child: ElevatedButton(
               onPressed: () {
                 ///Function (Bloc,Provider)
+                // context.read<CubitLast>();
                 context.read<CubitLast>().checker(controller.text);
               },
               child: const Text("Beat"),

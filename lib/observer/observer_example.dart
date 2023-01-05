@@ -11,6 +11,7 @@ class ObserverExample extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object? event) {
     print("${bloc.runtimeType} receive a event $event");
+
     super.onEvent(bloc, event);
   }
 
